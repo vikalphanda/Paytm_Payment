@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+<title>Orders</title>
+<head>
+<!--     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content=""> -->
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <link href= "{% static "css/home.css" %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+    
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/home.js" %}"></script>
+
+</head>
+<body>
+	<div class='container'>
+    <div class='row' id="main-header">
+		  <div class='col-md-10'>
+        <!-- Django : Add User Name -->
+        <h4>Welcome, {{seller_name}}</h4>
+      </div>
+      <div class='col-md-1'>
+      </div>
+      <div class='col-md-1'>
+        <button type="button" class="btn btn-primary" name="logout" id="{{mou_id}}">Logout</button>
+      </div>
+    </div>
+    <div class="row" id="content">
+        <div class='row_fluid'>
+          <h4>All Orders</h4>
+        </div>
+        <div class='row_fluid' id="table-scrollable" >
+          <table class="table table-striped" id='orders-table'>
+            <thead>
+              <tr>
+                <th>Time Stamp</th>
+                <th>Product Id</th>
+                <th>Amount</th>
+                <th>Name</th>
+                <th>Shipping Address</th>
+              </tr>
+            </thead>
+            <tbody id='orders-tbody'>
+            {% if order_dict %}
+            	{% for order in order_dict %}
+            		<tr>
+            			<td>{{ order.timeStamp }}</td>
+            			<td>{{ order.productId }}</td>
+            			<td>{{ order.amount }}</td>
+            			<td>{{ order.buyerName }}</td>
+            			<td>{{ order.shippingAddr }}</td>
+            		</tr>
+            	{% endfor %}
+            {% else %}
+            	<strong>There are no orders present.</strong>
+        	{% endif %}
+             <!--  <tr>
+                <td>1</td>
+                <td>1233</td>
+                <td>12/10/2014</td>
+                <td>Rohan Gulati</td>
+                <td>HNo. 257, Sector - 27</td>
+              <tr> -->
+            </tbody>
+          </table>
+        </div>
+    </div>
+      
+    <div class="row" id="content">
+        <div class='row_fluid'>
+          <h4>All Products</h4>
+        </div>
+        <div class='row_fluid' id="table-scrollable">
+          <table class="table table-hover" id='products-table'>
+            <thead>
+              <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <!-- Django : Product Table -->
+            <tbody id='products-tbody'>
+            {% if prod_dict %}
+            	{% for product in prod_dict %}
+              		<tr data-toggle="modal" data-id="1" data-target="#myModel">
+                		<td>{{ product.id }}</td>
+                		<td>{{ product.productName }}</td>
+                		<td>{{ product.amount }}</td>
+              		</tr>
+              	{% endfor %}
+            {% else %}
+            	<strong>No Products Present</strong>
+            {% endif %}
+              <!-- <tr data-toggle="modal" data-id="1" data-target="#myModel">
+                <td>1</td>
+                <td>Fuck Product</td>
+                <td>400</td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Button Script</h4>
+          </div>
+          <div id="details" class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
